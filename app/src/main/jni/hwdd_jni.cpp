@@ -141,7 +141,7 @@ Java_xf_lenetmnistdemo_HandWrittenDigitsDetector_nativeDetect(JNIEnv* env,
     for (size_t i=0; i<cls_scores.size(); i++)
     {
         float s = cls_scores[i];
-        __android_log_print(ANDROID_LOG_DEBUG, "HandWrittenDigitsDetector", "%d %f", i, s);
+        __android_log_print(ANDROID_LOG_DEBUG, "HandWrittenDigitsDetector", "%d %.20f", i, s);
         if (s > max_score)
         {
             top_class = i;
@@ -149,7 +149,7 @@ Java_xf_lenetmnistdemo_HandWrittenDigitsDetector_nativeDetect(JNIEnv* env,
         }
     }
     bench_end("detect");
-    __android_log_print(ANDROID_LOG_DEBUG, "HandWrittenDigitsDetector", "top_class: %d, max_score: %.3f", top_class, max_score);
+    __android_log_print(ANDROID_LOG_DEBUG, "HandWrittenDigitsDetector", "result: %d, max_score: %.20f", top_class, max_score);
     return top_class;
 }
 

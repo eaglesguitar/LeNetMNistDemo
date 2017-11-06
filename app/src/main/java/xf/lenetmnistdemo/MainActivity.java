@@ -2,6 +2,8 @@ package xf.lenetmnistdemo;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -25,35 +27,35 @@ public class MainActivity extends AppCompatActivity {
             int n = detect("number_4.jpg");
             Log.e(TAG, "digitsDetector.detect number_4.jpg: " + n);
 
-            n = detect("1.png");
-            Log.e(TAG, "digitsDetector.detect 1 ==> " + n);
+            for (int i = 0; i < 10; i++) {
+                n = detect(i + ".png");
+                Log.d(TAG, "digitsDetector.detect " + i + " ==> " + n);
+                if (n != i) {
+                    Log.e(TAG, "digitsDetector.detect error: " + i + ", " + n);
+                }
+            }
 
-            n = detect("0.png");
-            Log.e(TAG, "digitsDetector.detect 0 ==> " + n);
+            Bitmap b = Bitmap.createBitmap(28, 28, Bitmap.Config.ARGB_8888);
+            n = digitsDetector.detect(b);
+            Log.d(TAG, "digitsDetector.detect empty bitmap ==> " + n);
 
-            n = detect("2.png");
-            Log.e(TAG, "digitsDetector.detect 2 ==> " + n);
+            Canvas c = new Canvas(b);
+            c.drawColor(Color.RED);
+            n = digitsDetector.detect(b);
+            Log.d(TAG, "digitsDetector.detect red bitmap ==> " + n);
 
-            n = detect("4.png");
-            Log.e(TAG, "digitsDetector.detect 4 ==> " + n);
+            c.drawColor(Color.GREEN);
+            n = digitsDetector.detect(b);
+            Log.d(TAG, "digitsDetector.detect green bitmap ==> " + n);
 
-            n = detect("3.png");
-            Log.e(TAG, "digitsDetector.detect 3 ==> " + n);
+            c.drawColor(Color.BLUE);
+            n = digitsDetector.detect(b);
+            Log.d(TAG, "digitsDetector.detect blue bitmap ==> " + n);
 
-            n = detect("5.png");
-            Log.e(TAG, "digitsDetector.detect 5 ==> " + n);
+            c.drawColor(Color.BLACK);
+            n = digitsDetector.detect(b);
+            Log.d(TAG, "digitsDetector.detect black bitmap ==> " + n);
 
-            n = detect("9.png");
-            Log.e(TAG, "digitsDetector.detect 9 ==> " + n);
-
-            n = detect("6.png");
-            Log.e(TAG, "digitsDetector.detect 6 ==> " + n);
-
-            n = detect("8.png");
-            Log.e(TAG, "digitsDetector.detect 8 ==> " + n);
-
-            n = detect("7.png");
-            Log.e(TAG, "digitsDetector.detect 7 ==> " + n);
         } catch (IOException e) {
             Log.e("MainActivity", "initSqueezeNcnn error");
         }
