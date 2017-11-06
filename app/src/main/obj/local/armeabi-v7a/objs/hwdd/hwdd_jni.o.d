@@ -2,28 +2,24 @@
  /Users/Gerald/development/codes/ai/ncnn/LeNetMNistDemo/app/src/main/jni/hwdd_jni.cpp \
  /Users/Gerald/development/env/android/ndk/android-ndk-r14b/sources/cxx-stl/gnu-libstdc++/4.9/include/string \
  /Users/Gerald/development/env/android/ndk/android-ndk-r14b/sources/cxx-stl/gnu-libstdc++/4.9/include/vector \
- /Users/Gerald/development/codes/ai/ncnn/ncnn/build-android-armv7/install/include/net.h \
- /Users/Gerald/development/codes/ai/ncnn/ncnn/build-android-armv7/install/include/blob.h \
- /Users/Gerald/development/codes/ai/ncnn/ncnn/build-android-armv7/install/include/platform.h \
- /Users/Gerald/development/codes/ai/ncnn/ncnn/build-android-armv7/install/include/layer.h \
- /Users/Gerald/development/codes/ai/ncnn/ncnn/build-android-armv7/install/include/mat.h \
- /Users/Gerald/development/codes/ai/ncnn/ncnn/build-android-armv7/install/include/paramdict.h \
+ ncnn/include/net.h ncnn/include/blob.h ncnn/include/platform.h \
+ ncnn/include/layer.h ncnn/include/mat.h ncnn/include/paramdict.h \
  /Users/Gerald/development/codes/ai/ncnn/LeNetMNistDemo/app/src/main/jni/lenet.id.h
 
 /Users/Gerald/development/env/android/ndk/android-ndk-r14b/sources/cxx-stl/gnu-libstdc++/4.9/include/string:
 
 /Users/Gerald/development/env/android/ndk/android-ndk-r14b/sources/cxx-stl/gnu-libstdc++/4.9/include/vector:
 
-/Users/Gerald/development/codes/ai/ncnn/ncnn/build-android-armv7/install/include/net.h:
+ncnn/include/net.h:
 
-/Users/Gerald/development/codes/ai/ncnn/ncnn/build-android-armv7/install/include/blob.h:
+ncnn/include/blob.h:
 
-/Users/Gerald/development/codes/ai/ncnn/ncnn/build-android-armv7/install/include/platform.h:
+ncnn/include/platform.h:
 
-/Users/Gerald/development/codes/ai/ncnn/ncnn/build-android-armv7/install/include/layer.h:
+ncnn/include/layer.h:
 
-/Users/Gerald/development/codes/ai/ncnn/ncnn/build-android-armv7/install/include/mat.h:
+ncnn/include/mat.h:
 
-/Users/Gerald/development/codes/ai/ncnn/ncnn/build-android-armv7/install/include/paramdict.h:
+ncnn/include/paramdict.h:
 
 /Users/Gerald/development/codes/ai/ncnn/LeNetMNistDemo/app/src/main/jni/lenet.id.h:

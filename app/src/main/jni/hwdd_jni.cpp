@@ -31,8 +31,8 @@ static void bench_end(const char* comment)
     __android_log_print(ANDROID_LOG_DEBUG, "HandWrittenDigitsDetector", "%.2fms   %s", elasped, comment);
 }
 
-static std::vector<unsigned char> param;
-static std::vector<unsigned char> model;
+static std::vector<unsigned char> param_bin;
+static std::vector<unsigned char> model_bin;
 static ncnn::Net ncnnNet;
 
 static std::vector<std::string> split_string(const std::string& str, const std::string& delimiter)
@@ -56,23 +56,26 @@ static std::vector<std::string> split_string(const std::string& str, const std::
 extern "C" {
 
 // public native boolean Init(byte[] param, byte[] bin, byte[] words);
-JNIEXPORT jint JNICALL Java_xf_lenetmnistdemo_HandWrittenDigitsDetector_init(JNIEnv* env, jobject thiz, jbyteArray param, jbyteArray bin)
+JNIEXPORT jint JNICALL Java_xf_lenetmnistdemo_HandWrittenDigitsDetector_nativeInit(JNIEnv* env,
+    jobject thiz,
+    jbyteArray bin,
+    jbyteArray param)
 {
     // init param
     {
         int len = env->GetArrayLength(param);
-        param.resize(len);
-        env->GetByteArrayRegion(param, 0, len, (jbyte*)param.data());
-        int ret = ncnnNet.load_param(param.data());
+        param_bin.resize(len);
+        env->GetByteArrayRegion(param, 0, len, (jbyte*)param_bin.data());
+        int ret = ncnnNet.load_param(param_bin.data());
         __android_log_print(ANDROID_LOG_DEBUG, "HandWrittenDigitsDetector", "load_param %d %d", ret, len);
     }
 
     // init bin
     {
         int len = env->GetArrayLength(bin);
-        model.resize(len);
-        env->GetByteArrayRegion(bin, 0, len, (jbyte*)model.data());
-        int ret = ncnnNet.load_model(model.data());
+        model_bin.resize(len);
+        env->GetByteArrayRegion(bin, 0, len, (jbyte*)model_bin.data());
+        int ret = ncnnNet.load_model(model_bin.data());
         __android_log_print(ANDROID_LOG_DEBUG, "HandWrittenDigitsDetector", "load_model %d %d", ret, len);
     }
 
@@ -80,7 +83,12 @@ JNIEXPORT jint JNICALL Java_xf_lenetmnistdemo_HandWrittenDigitsDetector_init(JNI
 }
 
 // public native String Detect(Bitmap bitmap);
-JNIEXPORT jint JNICALL Java_xf_lenetmnistdemo_HandWrittenDigitsDetector_Detect(JNIEnv* env, jobject thiz, jobject bitmap)
+JNIEXPORT
+jint
+JNICALL
+Java_xf_lenetmnistdemo_HandWrittenDigitsDetector_nativeDetect(JNIEnv* env,
+    jobject thiz,
+    jobject bitmap)
 {
     bench_start();
 
@@ -91,15 +99,15 @@ JNIEXPORT jint JNICALL Java_xf_lenetmnistdemo_HandWrittenDigitsDetector_Detect(J
         AndroidBitmap_getInfo(env, bitmap, &info);
         int width = info.width;
         int height = info.height;
-        if (width != 227 || height != 227)
-            return -1;
+        //if (width != 227 || height != 227)
+          //  return -1;
         if (info.format != ANDROID_BITMAP_FORMAT_RGBA_8888)
             return -2;
 
         void* indata;
         AndroidBitmap_lockPixels(env, bitmap, &indata);
 
-        in = ncnn::Mat::from_pixels((const unsigned char*)indata, ncnn::Mat::PIXEL_RGBA2BGR, width, height);
+        in = ncnn::Mat::from_pixels((const unsigned char*)indata, ncnn::Mat::PIXEL_RGBA2GRAY, width, height);
 
         AndroidBitmap_unlockPixels(env, bitmap);
     }
@@ -133,7 +141,7 @@ JNIEXPORT jint JNICALL Java_xf_lenetmnistdemo_HandWrittenDigitsDetector_Detect(J
     for (size_t i=0; i<cls_scores.size(); i++)
     {
         float s = cls_scores[i];
-//         __android_log_print(ANDROID_LOG_DEBUG, "HandWrittenDigitsDetector", "%d %f", i, s);
+        __android_log_print(ANDROID_LOG_DEBUG, "HandWrittenDigitsDetector", "%d %f", i, s);
         if (s > max_score)
         {
             top_class = i;

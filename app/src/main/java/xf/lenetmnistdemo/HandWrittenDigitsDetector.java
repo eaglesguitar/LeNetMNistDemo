@@ -1,24 +1,36 @@
 package xf.lenetmnistdemo;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 /**
  * Created by Gerald on 06/11/2017.
  */
 
 public class HandWrittenDigitsDetector {
+    private static final String TAG = HandWrittenDigitsDetector.class.getSimpleName();
+
     public HandWrittenDigitsDetector() {
     }
 
-    public int init(byte[] net_bin, byte[] param_bin) {
-        return native_init(net_bin, param_bin);
+    public int init(byte[] model_bin, byte[] param_bin) {
+        return nativeInit(model_bin, param_bin);
     }
 
     public int detect(Bitmap bitmap) {
-        return native_detect(bitmap);
+        return nativeDetect(bitmap);
     }
 
-    private native int native_init(byte[] net_bin, byte[] param_bin);
+    public native int nativeInit(byte[] model_bin, byte[] param_bin);
 
-    private native int native_detect(Bitmap bitmap);
+    public native int nativeDetect(Bitmap bitmap);
+
+    static {
+        try {
+            System.loadLibrary("hwdd");
+            Log.d(TAG, "library loaded!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

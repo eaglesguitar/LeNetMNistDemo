@@ -1,7 +1,7 @@
 LOCAL_PATH := $(call my-dir)
 
 # change this folder path to yours
-NCNN_INSTALL_PATH := $(HOME)/development/codes/ai/ncnn/ncnn/build-android-armv7/install
+NCNN_INSTALL_PATH := ncnn
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := ncnn
